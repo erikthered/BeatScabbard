@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 import java.io.IOException
 
-class CustomLevelsLoader(val directoryPath: String) {
+class CustomLevelsLoader(directoryPath: String) {
 
     private val file: File = File(directoryPath)
     private val objectMapper = jacksonObjectMapper()
@@ -21,7 +21,7 @@ class CustomLevelsLoader(val directoryPath: String) {
     fun getSongData(): List<Song> {
         println("Getting song data")
         return file.walkTopDown()
-            .filter { it.name.toLowerCase() == "info.dat" }
+            .filter { it.name.lowercase() == "info.dat" }
             .map { file ->
                 val song = objectMapper.readValue<Song>(file)
                 song.path = file.parentFile.absolutePath
